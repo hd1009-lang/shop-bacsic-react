@@ -1,0 +1,14 @@
+{
+  "name": "shop",
+  "version": "1.0.0",
+  "description": "mern shop",
+  "main": "index.js",
+  "scripts": {
+    "start": "node be/server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
