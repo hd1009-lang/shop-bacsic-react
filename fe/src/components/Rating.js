@@ -49,7 +49,7 @@ const Rating = ({ value, text,color }) => {
           <BsStar />
         )}
       </span>
-      <span>{text&& text}</span>
+      <span>{text && text}</span>
     </div>
   );
 };
