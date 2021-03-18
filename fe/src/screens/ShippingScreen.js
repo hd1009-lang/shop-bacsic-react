@@ -15,14 +15,18 @@ const ShippingScreen = ({history}) => {
   const [address, setAddress] = useState('');
   const [district, setDistrict] = useState('');
   const [city, setCity] = useState('');
+  const [message,setMessage]=useState('');
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const cart=useSelector(state=>state.cart)
   useEffect(()=>{
     if (!userInfo) {
       history.push('/login');
     }
+    if(cart.cartItems.length<=0)
+    history.push('/');
     if (!user || !user.name) {
       dispatch(detailUser());
     } else {
@@ -36,6 +40,9 @@ const ShippingScreen = ({history}) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if(!name || !district || !city || !address){
+      return setMessage('Vui lòng nhập đầy đủ thông tin');
+    }
     const addressShip={
       address:address,
       district:district,
@@ -49,6 +56,7 @@ const ShippingScreen = ({history}) => {
     <FormContainer>
       <CheckOutStep step1 step2/>
       <h1>Shipping</h1>
+      {message?<Message variant="danger">{message}</Message>:''}
       <Form onSubmit={submitHandler}>
       <Form.Group>
         <Form.Label controlId='name'>Tên người nhận</Form.Label>

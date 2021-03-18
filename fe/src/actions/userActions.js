@@ -73,7 +73,7 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const detailUser=()=>async(dispatch,getState)=>{
+export const detailUser=() => async (dispatch,getState)=>{
   try {
     dispatch({type:USER_DETAILS_REQUEST});
     const {userLogin:{userInfo}}=getState()
@@ -82,7 +82,7 @@ export const detailUser=()=>async(dispatch,getState)=>{
         'Authorization':userInfo.token
       }
     }
-    const {data}=await axios.get(`/api/users/get-info`,config)
+    const {data} = await axios.get(`/api/users/get-info`,config)
     console.log(data);
     dispatch({
       type:USER_DETAILS_SUCCESS,

@@ -4,6 +4,7 @@ import color from 'colors';
 import connectDB from './config/db.js'
 import productRouter from './routers/productRoute.js'
 import userRouter from './routers/userRouter.js'
+import orderRouter from './routers/orderRoute.js'
 dotenv.config();
 
 connectDB();
@@ -13,6 +14,7 @@ app.use(express.json())
 
 app.use('/api/products',productRouter)
 app.use('/api/users',userRouter)
+app.use('/api/orders',orderRouter)
 app.use((err,req,res,next)=>{
   console.log(res);
   const statusCode=res.statusCode===200?500:res.statusCode
