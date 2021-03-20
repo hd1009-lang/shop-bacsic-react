@@ -109,7 +109,7 @@ const ProductScreen = ({history, match }) => {
                     type='button'
                     disabled={product.countInStock === 0}
                   >
-                    Add To Cart
+                    Thêm vào giỏ hàng
                   </Button>
                 </ListGroup.Item>
               </ListGroup>
@@ -118,8 +118,8 @@ const ProductScreen = ({history, match }) => {
         </Row>
         <Row>
             <Col md={6}>
-              <h2>Reviews</h2>
-              {product.review.length === 0 && <Message>No Reviews</Message>}
+              <h2>Đánh giá</h2>
+              {product.review.length === 0 && <Message>Chưa có đánh giá</Message>}
               <ListGroup variant='flush'>
                 {product.review.map((review) => (
                   <ListGroup.Item key={review._id}>
@@ -133,7 +133,7 @@ const ProductScreen = ({history, match }) => {
                   <h2>Write a Customer Review</h2>
                   {successProductReview && (
                     <Message variant='success'>
-                      Review submitted successfully
+                      Đánh giá thành công
                     </Message>
                   )}
                   {loadingProductReview && <Loader />}
@@ -149,7 +149,7 @@ const ProductScreen = ({history, match }) => {
                           value={rating}
                           onChange={(e) => setRating(e.target.value)}
                         >
-                          <option value=''>Select...</option>
+                          <option value=''>Chọn...</option>
                           <option value='1'>1 - Poor</option>
                           <option value='2'>2 - Fair</option>
                           <option value='3'>3 - Good</option>
@@ -158,7 +158,7 @@ const ProductScreen = ({history, match }) => {
                         </Form.Control>
                       </Form.Group>
                       <Form.Group controlId='comment'>
-                        <Form.Label>Comment</Form.Label>
+                        <Form.Label>Đánh giá</Form.Label>
                         <Form.Control
                           as='textarea'
                           row='3'
@@ -171,12 +171,12 @@ const ProductScreen = ({history, match }) => {
                         type='submit'
                         variant='primary'
                       >
-                        Submit
+                        Xác nhận
                       </Button>
                     </Form>
                   ) : (
                     <Message>
-                      Please <Link to='/login'>sign in</Link> to write a review{' '}
+                      Đi <Link to='/login'>Đăng nhập</Link> để viết đánh giá{' '}
                     </Message>
                   )}
                 </ListGroup.Item>
