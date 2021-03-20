@@ -78,6 +78,54 @@ const User = {
     } catch (error) {
       return res.status(500).json(error.message);
     }
+  },
+  getAllUser:async (req,res)=>{
+    try {
+      const users=await UserDB.find({});
+      res.json(users)
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  },
+  deleteUser:async (req,res)=>{
+    try {
+      const user=await UserDB.findById(req.params.id);
+      if(!user) return res.status(400).json({msg:"Lỗi"});
+      await user.remove();
+      res.json({msg:"Done"});
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
+  },
+  getUserById:async (req,res)=>{
+    try {
+      const user=await UserDB.findById(req.params.id).select('-password');
+      if(!user) return res.status(400).json({msg:"Lỗi ko co"});
+      res.json(user)
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
+  },
+  updateUserByAdmin:async (req,res)=>{
+    try {
+      const user=await UserDB.findById(req.params.id);
+      if(user){
+        user.name=req.body.name || user.name;
+        user.email=req.body.email || user.email;
+        user.isAdmin=req.body.isAdmin 
+        const updateUser=await user.save();
+        res.json({
+          _id: updateUser._id,
+          name: updateUser.name,
+          email: updateUser.email,
+          isAdmin: updateUser.isAdmin,
+        });
+      }
+
+      
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
   }
 };
 export default User;

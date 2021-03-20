@@ -12,7 +12,6 @@ const PaymentScreen = ({ history }) => {
   const dispatch = useDispatch();
   const [payment, setPayment] = useState('Paypal');
   const { address } = useSelector((state) => state.cart);
-  console.log(address);
   useEffect(() => {
     if (!address) {
       history.push('/shipping');

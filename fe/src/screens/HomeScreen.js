@@ -5,20 +5,18 @@ import Product from '../components/Product.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { listProduct } from '../actions/productAction.js';
 import Loader from '../components/Loader.js';
+import Paginate from '../components/Paginate'
 import Message from '../components/Message.js';
-const HomeScreen = () => {
+const HomeScreen = ({match}) => {
   // const [products,setProducts]=useState([]);
   const dispatch = useDispatch();
   const data = useSelector((state) => state.productList);
-  const { loading, error, products } = data;
+  const { loading, error, products,pages,page } = data;
+  const keyword=match.params.keyword;
+  const pageNumber=match.params.pageNumber || 1;
   useEffect(() => {
-    // const fetchProducts=async ()=>{
-    //   const {data}=await axios.get('/api/products');
-    //   setProducts(data)
-    // }
-    // fetchProducts();
-    dispatch(listProduct());
-  }, [dispatch]);
+    dispatch(listProduct(keyword,pageNumber));
+  }, [dispatch,keyword,pageNumber]);
   return (
     <>
       <h1>Latest Products</h1>
@@ -37,6 +35,7 @@ const HomeScreen = () => {
           })}
         </Row>
       )}
+      <Paginate pages={pages} page={page} keyword={keyword?keyword:''} />
     </>
   );
 };

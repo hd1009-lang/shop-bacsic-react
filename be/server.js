@@ -5,18 +5,28 @@ import connectDB from './config/db.js'
 import productRouter from './routers/productRoute.js'
 import userRouter from './routers/userRouter.js'
 import orderRouter from './routers/orderRoute.js'
+import uploadRouter from './routers/upload.js'
+import fileUpload from 'express-fileupload'
+import morgan from 'morgan'
 dotenv.config();
 
 connectDB();
 const app=express();
-
+if(process.env.NODE_ENV==="development"){
+  app.use(morgan('dev'))
+}
 app.use(express.json())
-
+app.use(fileUpload({
+  useTempFiles:true
+}))
 app.use('/api/products',productRouter)
 app.use('/api/users',userRouter)
 app.use('/api/orders',orderRouter)
+app.use('/api/upload',uploadRouter)
+
+app.get('/api/config/paypal',(req,res)=>
+res.send(process.env.PAYPAL_CLIENT_ID))
 app.use((err,req,res,next)=>{
-  console.log(res);
   const statusCode=res.statusCode===200?500:res.statusCode
   res.status(statusCode);
   res.json({
