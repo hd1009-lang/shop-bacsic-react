@@ -7,6 +7,7 @@ import userRouter from './routers/userRouter.js'
 import orderRouter from './routers/orderRoute.js'
 import uploadRouter from './routers/upload.js'
 import fileUpload from 'express-fileupload'
+import path from 'path'
 import morgan from 'morgan'
 dotenv.config();
 
@@ -26,6 +27,16 @@ app.use('/api/upload',uploadRouter)
 
 app.get('/api/config/paypal',(req,res)=>
 res.send(process.env.PAYPAL_CLIENT_ID))
+const __dirname=path.resolve();
+if(process.env.NODE_ENV==='production'){
+  app.use(express.static(path.join(__dirname,'/fe/build')))
+  app.get('*',(req,res)=>res.sendFile(path.resolve(__dirname,'fe','build','index.html')))
+}else{
+  app.get('/',(req,res)=>{
+    res.send('Api running')
+  })
+}
+
 app.use((err,req,res,next)=>{
   const statusCode=res.statusCode===200?500:res.statusCode
   res.status(statusCode);
