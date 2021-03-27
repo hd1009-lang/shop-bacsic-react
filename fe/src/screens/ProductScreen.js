@@ -130,7 +130,7 @@ const ProductScreen = ({history, match }) => {
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>
-                  <h2>Write a Customer Review</h2>
+                  <h2>Viết bình luận tại đây</h2>
                   {successProductReview && (
                     <Message variant='success'>
                       Đánh giá thành công
