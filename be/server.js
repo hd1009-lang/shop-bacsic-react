@@ -9,6 +9,7 @@ import uploadRouter from './routers/upload.js'
 import fileUpload from 'express-fileupload'
 import path from 'path'
 import morgan from 'morgan'
+import redis from 'redis';
 dotenv.config();
 
 connectDB();
