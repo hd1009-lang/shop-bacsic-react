@@ -7,6 +7,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import {login} from '../actions/userActions'
 const LoginScreen = ({location,history}) => {
+  console.log(history);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const redirect=location.search?location.search.split('=')[1]:'/'

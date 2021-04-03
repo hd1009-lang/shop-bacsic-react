@@ -27,7 +27,7 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET
 } from '../constants/userConstant';
-
+import {NOTIFY} from '../constants/notifyConstant'
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
@@ -46,6 +46,13 @@ export const login = (email, password) => async (dispatch) => {
       payload: data,
     });
     localStorage.setItem('userInfo', JSON.stringify(data));
+    dispatch({
+      type:NOTIFY,
+      payload:{
+        success:true,
+        message:"Đăng nhập thành công"
+      }
+    })
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,

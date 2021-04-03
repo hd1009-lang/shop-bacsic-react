@@ -29,12 +29,13 @@ const ProductListScreen = ({history,match}) => {
       dispatch(createProduct())
   }
   useEffect(()=>{
-    dispatch({type:PRODUCT_CREATE_RESET})
     if(successDelete) {
       dispatch({type:PRODUCT_DELETE_RESET})
     }
     if(successCreate){
       history.push(`/product/${createdProduct._id}/edit`)
+      dispatch({type:PRODUCT_CREATE_RESET})
+
     }
     if(!userInfo){
       // window.location.href('/')

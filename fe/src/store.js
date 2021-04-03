@@ -6,6 +6,7 @@ import { productDetailsReducer } from './reducers/productDetailReducer'
 import { cartReducer } from './reducers/cartReducer'
 import {orderReducer,orderDetailsReducer,orderPayReducer, orderListReducer, orderListAllReducer, orderDeliveredReducer} from './reducers/orderReducer'
 import { userDeleteReducer, userDetailsReducer, userListReducer, userReducer, userRegisterReducer, userUpdateReducer,userUpdateWithAdminReducer } from './reducers/userReducer'
+import { notifyReducer } from './reducers/notifyReducer'
 const reducer=combineReducers({
   productList:productReducer,
   productDetails:productDetailsReducer,
@@ -26,7 +27,8 @@ const reducer=combineReducers({
   updateProduct:productUpdateReducer,
   allOrder:orderListAllReducer,
   orderDeliver:orderDeliveredReducer,
-  reviewProduct:productReviewReducer
+  reviewProduct:productReviewReducer,
+  notify:notifyReducer
 })
 const cartItemsFormLocalStore=localStorage.getItem('cartItems')?JSON.parse(localStorage.getItem('cartItems')):[]
 const userInfoFormLocalStore=localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')):null

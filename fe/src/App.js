@@ -20,14 +20,19 @@ import UserEditScreen from './screens/UserEditScreen';
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen';
 import OrderAllScreen from './screens/OrderAllScreen';
+import Notify from './components/Notify';
 const App = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const notify=useSelector(state=>state.notify);;
+  const {success,message}=notify;
   return (
     <Router>
       <Header />
       <main>
+      {success && <Notify message={message}/>}
         <Container>
+
         <Switch>
 
           <Route path='/' exact component={HomeScreen}/>

@@ -63,7 +63,7 @@ const ProductEditScreen = ({ match, history }) => {
       setDescription(product.description)
     }
   }, [history,product,success]);
-  const submitHandler = (e) => {
+  const submitHandler =async (e) => {
     e.preventDefault();
     const newUser={
       id:match.params.id,
@@ -76,7 +76,15 @@ const ProductEditScreen = ({ match, history }) => {
       numReview:numReview,
       category:category
     }
-    dispatch(updateProduct(newUser))
+    await dispatch(updateProduct(newUser));
+    setName('');
+    setPrice('');
+    setCategory('');
+    setBrand('');
+    setCountInStock('');
+    setImage('');
+    setDescription('')
+    history.push(`/product/${match.params.id}`);
     // dispatch(updateUserWithAdmin({_id:userId,name,email,isAdmin}))
   };
 

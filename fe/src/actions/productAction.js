@@ -21,6 +21,7 @@ import {
   PRODUCT_REVIEW_SUCCESS,
   PRODUCT_REVIEW_RESET,
 } from '../constants/productConstant';
+import {NOTIFY} from '../constants/notifyConstant'
 
 export const listProduct = (keyword = '', pageNumber = '') => async (dispatch) => {
   try {
@@ -97,6 +98,13 @@ export const updateProduct = (user) => async (dispatch,getState) => {
       type: PRODUCT_UPDATE_SUCCESS,
     });
     dispatch({type:PRODUCT_DETAILS_SUCCESS,payload:data})
+    dispatch({
+      type:NOTIFY,
+      payload:{
+        success:true,
+        message:"Cập nhật sản phẩm thành công"
+      }
+    })
   } catch (error) {
     dispatch({
       type: PRODUCT_UPDATE_FAIL,

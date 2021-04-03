@@ -103,7 +103,7 @@ const User = {
       if(!user) return res.status(400).json({msg:"Lỗi ko co"});
       res.json(user)
     } catch (error) {
-      return res.status(400).json(error.message);
+      return res.status(500).json(error.message);
     }
   },
   updateUserByAdmin:async (req,res)=>{
@@ -124,7 +124,7 @@ const User = {
 
       
     } catch (error) {
-      return res.status(400).json(error.message);
+      return res.status(500).json(error.message);
     }
   }
 };
