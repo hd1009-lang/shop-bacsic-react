@@ -18,6 +18,7 @@ const Container=styled.div`
   bottom:2rem;
   left:5rem;
   height:3rem;
+  z-index:1;
   background-color:lightgreen;
   text-align:center;
   padding:.5rem 2rem;
