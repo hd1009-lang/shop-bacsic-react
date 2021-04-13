@@ -66,6 +66,8 @@ const User = {
           if(!isMatch) return res.status(400).json({ msg: 'Sai mật khẩu' });
           user.password=await bcrypt.hash(req.body.passwordNew,10);
         }
+        const userCurrent=await UserDB.find({email:req.body.email});
+        if(userCurrent) return res.status(400).json({ msg: 'Email đã tồn tại' });
       }
       const userUpdate=await user.save();
         res.json({
