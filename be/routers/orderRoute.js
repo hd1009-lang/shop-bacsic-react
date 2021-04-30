@@ -5,6 +5,7 @@ import isAdmin from '../middleware/isAdmin.js'
 import order from '../controllers/orderCtrl.js'
 
 router.post(`/`,auth,order.createOrder);
+router.post(`/test/:id`,order.testPost)
 router.get(`/list`,auth,isAdmin,order.getOrder);
 router.get(`/my-order`,auth,order.getUserOrder);
 router.get(`/:id`,auth,order.getOrderById);

@@ -33,8 +33,9 @@ const User = {
   },
   register:async (req,res)=>{
     try {
-      const {name,email,password}=req.body;
+      const {name,email,password,passwordConfirm}=req.body;
       const user=await UserDB.findOne({email})
+      if(password!==passwordConfirm) return res.status(400).json({ msg: 'Mật khẩu nhập lại không giống nhau' });
       if(user) return res.status(400).json({ msg: 'Tài khoản đã tồn tại' });
       const passHash=await bcrypt.hash(password,10);
       const newUser=new UserDB({
@@ -57,24 +58,30 @@ const User = {
       const user=await UserDB.findById(req.user.id);
       if(user){
         user.name=req.body.name || req.user.name;
-        user.email=req.body.email || req.user.email;
         user.address=req.body.address || req.user.address;
         user.district=req.body.district || req.user.district;
         user.city=req.body.city || req.user.city;
+        if(req.body.email!==user.email){
+          const userCurrent=await UserDB.findOne({email:req.body.email});
+          if(userCurrent) return res.status(400).json({ msg: 'Email đã tồn tại' });
+        }
+        user.email=req.body.email || req.user.email;
         if(req.body.password || req.body.passwordNew){
           const isMatch=await bcrypt.compare(req.body.password,user.password);
           if(!isMatch) return res.status(400).json({ msg: 'Sai mật khẩu' });
           user.password=await bcrypt.hash(req.body.passwordNew,10);
         }
+        const userUpdate=await user.save();
+          res.json({
+            _id: userUpdate._id,
+            name: userUpdate.name,
+            email: userUpdate.email,
+            isAdmin: userUpdate.isAdmin,
+            token:createToken(userUpdate._id)
+          });
+      }else{
+        return res.status(400).json({ msg: 'Vui lòng đăng nhập' });
       }
-      const userUpdate=await user.save();
-        res.json({
-          _id: userUpdate._id,
-          name: userUpdate.name,
-          email: userUpdate.email,
-          isAdmin: userUpdate.isAdmin,
-          token:createToken(userUpdate._id)
-        });
     } catch (error) {
       return res.status(500).json(error.message);
     }

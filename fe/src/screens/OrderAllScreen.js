@@ -16,7 +16,7 @@ const OrderAllScreen = ({history,match}) => {
   const { userInfo } = userLogin;
   const allOrder=useSelector(state=>state.allOrder);
   const {loading,error,orders}=allOrder;
-  
+  console.log(orders);
   
   useEffect(()=>{
     if(!userInfo){
@@ -44,6 +44,7 @@ const OrderAllScreen = ({history,match}) => {
             {orders && orders.map(order=>(
               <tr key={order._id}>
                 <td>{order._id}</td>
+
                 <td>{order.user.name}</td>
                 <td>{order.createdAt}</td>
                 <td>

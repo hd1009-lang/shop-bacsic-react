@@ -19,7 +19,6 @@ const uploadCtrl = {
           folder: 'avatar', width: 150, height: 150, crop: "fill"
       }, async(err, result) => {
           if(err) throw err;
-
           removeTmp(file.tempFilePath)
           res.json({url: result.secure_url})
       })
@@ -27,13 +26,10 @@ const uploadCtrl = {
           return res.status(500).json({msg: error.message})
       }
   }
-
 }
-
 const removeTmp = (path) => {
   fs.unlink(path, (err) => {
     if (err) throw err;
   });
 };
-
 export default uploadCtrl;

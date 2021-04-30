@@ -1,5 +1,4 @@
 import Order from '../models/orderModel.js';
-
 const order = {
   createOrder: async (req, res) => {
     try {
@@ -11,7 +10,6 @@ const order = {
         shippingPrice,
         totalPrice,
       } = req.body;
-      
       const newOrder = new Order({
         orderItems,
         user: req.user.id,
@@ -33,7 +31,6 @@ const order = {
       'user',
       'name email'
     )
-  
     if (!order) return res.status(400).json({msg:"Không tìm thấy"});
     res.json(order)
    } catch (error) {
@@ -70,26 +67,29 @@ const order = {
   getOrder:async (req,res)=>{
     try {
       const orders=await Order.find().populate('user',"id name");
+      console.log(orders);
       res.json(orders)
     } catch (error) {
       return res.status(500).json(error.message);
     }
   },
   updateOrderToDelivered: async (req, res) => {
- 
    try {
     const order = await Order.findById(req.params.id)
-  
-    if (order) {
+    
+    if (order && order.isPaid) {
       order.isDelivered = true
       order.deliveredAt = Date.now()
     }
       const updatedOrder = await order.save()
-  
       res.json(updatedOrder)
    }catch (error) {
     return res.status(500).json(error.message);
    }
+  },
+  testPost:async(req,res)=>{
+    console.log(req.body);
+    res.json({msg:'ok'});
   }
 };
 

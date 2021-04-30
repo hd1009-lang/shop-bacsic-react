@@ -25,14 +25,14 @@ const RegisterScreen = ({location,history}) => {
   },[history,userInfo,redirect])
   const submitHandler=(e)=>{
     e.preventDefault();
-    if(password!==passwordConfirm){
-      return setMessage('Mật khẩu nhập không trùng')
-    }
+    // if(password!==passwordConfirm){
+    //   return setMessage('Mật khẩu nhập không trùng')
+    // }
     // alert('ok')USER_UPDATE_PROFILE_FAIL
     // console.log({
     //   name,email,password
     // });
-    dispatch(register(name,email,password))
+    dispatch(register(name,email,password,passwordConfirm))
   }
 
   return (
