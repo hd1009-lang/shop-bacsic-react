@@ -40,7 +40,6 @@ const RegisterScreen = ({location,history}) => {
       <h1>Đăng ký</h1>
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader/>}
-      {message && <Message variant="danger">{message}</Message>}
       <Form onSubmit={submitHandler}>
         <Form.Group>
           <Form.Label>Tên</Form.Label>
