@@ -35,8 +35,9 @@ const User = {
     try {
       const {name,email,password,passwordConfirm}=req.body;
       const user=await UserDB.findOne({email})
+      console.log(password,passwordConfirm);
       if(password!==passwordConfirm) return res.status(400).json({ msg: 'Mật khẩu nhập lại không giống nhau' });
-      if(user) return res.status(400).json({ msg: 'Tài khoản đã tồn tại' });
+      // if(user) return res.status(400).json({ msg: 'Tài khoản đã tồn tại' });
       const passHash=await bcrypt.hash(password,10);
       const newUser=new UserDB({
         name,email,password:passHash
