@@ -36,9 +36,9 @@ const User = {
       const {name,email,password,passwordConfirm}=req.body;
       const user=await UserDB.findOne({email})
       console.log(password,passwordConfirm);
-      // const regex=/(?!^.*[A-Z]{2,}.*$)^[A-Za-z]*$/
-      const regex=/[A-Z]/g
-      const regexNumber=/[0-9]/g
+      const regex=/(?!^.*[A-Z]{2,}.*$)^[A-Za-z]*$/
+      // const regex=/[A-Z]/g
+      const regexNumber=/[0-8]/g
       if(!regex.test(password)) return res.status(400).json({ msg: 'Phải có kí tự viết hoa' });
       if(!regexNumber.test(password)) return res.status(400).json({ msg: 'Phải có số' });
       if(password!==passwordConfirm) return res.status(400).json({ msg: 'Mật khẩu nhập lại không giống nhau' });
